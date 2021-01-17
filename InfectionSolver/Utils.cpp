@@ -24,16 +24,17 @@ void newBoard(board_t* board) {
 
 void displayBoard(const board_t* board, position_t last_from, position_t last_to) {
 	clear();
+    #define TILE_WIDTH 5
 	for (int y = (BOARD_HEIGHT - 1); y >= 0; y--) {
-		char line[2 + BOARD_WIDTH * 4 + 1];
+		char line[2 + BOARD_WIDTH * TILE_WIDTH + 1];
 		memset(line, ' ', sizeof(line));
-		line[2 + BOARD_WIDTH * 4] = 0;
+		line[2 + BOARD_WIDTH * TILE_WIDTH] = 0;
 		for (int x = 0; x < BOARD_WIDTH; x++) {
 			if (board->position[x][y]) {
 				char piece = 0xb3-board->position[x][y];
-				line[(x * 4) + 2] = piece;
-				line[(x * 4) + 3] = piece;
-				line[(x * 4) + 4] = piece;
+				for (int i = 0; i < TILE_WIDTH-1; i++) {
+					line[(x * TILE_WIDTH) + 2 + i] = piece;
+				}
 			}
 		}
 		for (int i = 0; i < 3; i++) {
@@ -42,9 +43,9 @@ void displayBoard(const board_t* board, position_t last_from, position_t last_to
 		}
 		std::cout << std::endl;
 	}
-	std::cout << "   A   B   C   D   E   F   G" << std::endl;
+	std::cout << "   A    B    C    D    E    F    G" << std::endl;
 	std::cout << std::endl;
-	std::cout << "Computer moved " << char('A'+ last_from.x) << char('0'+ last_from.y) << " to " << char('A' + last_to.x) << char('0' + last_to.y) << std::endl;
+	std::cout << "Previous move " << char('A'+ last_from.x) << char('0'+ last_from.y) << " to " << char('A' + last_to.x) << char('0' + last_to.y) << std::endl;
 	std::cout << std::endl;
 }
 
