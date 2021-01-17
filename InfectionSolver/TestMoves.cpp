@@ -5,11 +5,18 @@
 static position_t best_play_from;
 static position_t best_play_to;
 
+///\brief Return the determined best move to play
+///\param[out] from from
+///\param[out] to to
 void get_play(position_t* from, position_t* to) {
 	*from = best_play_from;
 	*to = best_play_to;
 }
 
+
+///\brief Score the board from player 1's perspective
+///\param[in] board the board
+///\return the score
 static int score_board(board_t* board) {
 	// always calculate from perspective of player 1
 	int num_pieces = 0;
@@ -28,12 +35,11 @@ static int score_board(board_t* board) {
 	return num_pieces;
 }
 
-/// \brief Calculate the best move to make for the player
+
+/// \brief Calculate the best move to make for the player, negmax method
 /// \param[in] board the board including level information
-/// \param[in] player which player to move
-/// \param[out] best_play_from the best "from" move to play (most pieces on board belong to player)
-/// \param[out] best_play_to the best "to" move to play (most pieces on board belong to player)
-/// \return the number of pieces we end up with for the best move
+/// \param[in] player which player to move (1 or 2)
+/// \return the best value player 1 can make as a result of this move
 int makeNextMove(board_t board, int player) {
 
 	int player_colour = (2 == player) ? -1 : 1;

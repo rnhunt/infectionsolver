@@ -14,6 +14,9 @@ static void clear() {
 #endif
 }
 
+
+///\brief Initialise a new board
+///\param[in] board pointer to the board to initialise
 void newBoard(board_t* board) {
 	memset(board, 0, sizeof(board_t));
 	board->position[0][BOARD_HEIGHT - 1] = 2;
@@ -22,6 +25,11 @@ void newBoard(board_t* board) {
 	board->position[0][0] = 1;
 }
 
+
+///\brief Display a board along with most recent move
+///\param[in] board pointer to the board
+///\param[in] last_from previous "from" move
+///\param[in] last_to previous "to" move
 void displayBoard(const board_t* board, position_t last_from, position_t last_to) {
 	clear();
     #define TILE_WIDTH 5
@@ -49,6 +57,12 @@ void displayBoard(const board_t* board, position_t last_from, position_t last_to
 	std::cout << std::endl;
 }
 
+
+///\param[in] Updates the state of the board following specified move
+///\param[in] board pointer to the board
+///\param[in] from "from" move
+///\param[in] to "to" move
+///\param[in] player the player (1 or 2)
 bool updateBoard(board_t* board, position_t from, position_t to, char player) {
 	bool legalmove = false;
 	if (!((from.x == to.x) && (from.y == to.y)) &&
@@ -79,6 +93,10 @@ bool updateBoard(board_t* board, position_t from, position_t to, char player) {
 	return legalmove;
 }
 
+///\param[in] Gets the next move or actions manual change to the board
+///\param[in] board pointer to the board
+///\param[out] returned_from "from" move to make
+///\param[out] returned_to "to" move to make
 bool prompt(board_t* board, position_t* returned_from, position_t* returned_to) {
 	bool moved = false;
 	std::string input;
