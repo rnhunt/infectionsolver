@@ -1,6 +1,6 @@
 #pragma once
 
-#define LOOK_AHEAD		5	///< How many moves to look ahead
+#define LOOK_AHEAD		4	///< How many moves to look ahead
 #define BOARD_WIDTH		7	///< Width of board
 #define BOARD_HEIGHT	7	///< Height of board
 
