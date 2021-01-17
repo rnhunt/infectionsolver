@@ -38,14 +38,14 @@ void displayBoard(const board_t* board, position_t last_from, position_t last_to
 			}
 		}
 		for (int i = 0; i < 3; i++) {
-			line[0] = (1 == i) ? '0' + y : ' ';
+			line[0] = (1 == i) ? '1' + y : ' ';
 			std::cout << line << std::endl;
 		}
 		std::cout << std::endl;
 	}
 	std::cout << "   A    B    C    D    E    F    G" << std::endl;
 	std::cout << std::endl;
-	std::cout << "Previous move " << char('A'+ last_from.x) << char('0'+ last_from.y) << " to " << char('A' + last_to.x) << char('0' + last_to.y) << std::endl;
+	std::cout << "Previous move " << char('A'+ last_from.x) << char('1'+ last_from.y) << " to " << char('A' + last_to.x) << char('1' + last_to.y) << std::endl;
 	std::cout << std::endl;
 }
 
@@ -89,7 +89,7 @@ bool prompt(board_t* board, position_t* returned_from, position_t* returned_to) 
 
 	position_t from, to;
 	from.x = ::toupper(input[0]) - 'A';
-	from.y = ::toupper(input[1]) - '0';
+	from.y = ::toupper(input[1]) - '1';
 	if ((from.x >= 0) && (from.x < BOARD_WIDTH) &&
 		(from.y >= 0) && (from.y < BOARD_HEIGHT)) {
 
@@ -102,7 +102,7 @@ bool prompt(board_t* board, position_t* returned_from, position_t* returned_to) 
 		else {
 			// Move it if allowed
 			to.x = ::toupper(input[2]) - 'A';
-			to.y = ::toupper(input[3]) - '0';
+			to.y = ::toupper(input[3]) - '1';
 			if ((to.x >= 0) && (to.x < BOARD_WIDTH) &&
 				(to.y >= 0) && (to.y < BOARD_HEIGHT)) {
 				moved = updateBoard(board, from, to, HUMAN_PLAYER);
