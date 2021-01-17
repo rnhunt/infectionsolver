@@ -12,7 +12,7 @@ int main()
     position_t last_from = { 0 }, last_to = { 0 };
     newBoard(&board);
     makeNextMove(board, COMPUTER_PLAYER);
-    get_play(&last_from, &last_to);
+    get_play(&board, &last_from, &last_to);
     updateBoard(&board, last_from, last_to, COMPUTER_PLAYER);
     while (true) {
         displayBoard(&board, last_from, last_to);
@@ -21,7 +21,7 @@ int main()
             displayBoard(&board, last_from, last_to);
             // we (stauf) have moved, so work out best move to respond with
             makeNextMove(board, COMPUTER_PLAYER);
-            get_play(&last_from, &last_to);
+            get_play(&board, &last_from, &last_to);
             updateBoard(&board, last_from, last_to, COMPUTER_PLAYER);
         }
 

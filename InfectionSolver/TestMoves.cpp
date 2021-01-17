@@ -6,9 +6,31 @@ static position_t best_play_from;
 static position_t best_play_to;
 
 ///\brief Return the determined best move to play
+///\param[in] board the board
 ///\param[out] from from
 ///\param[out] to to
-void get_play(position_t* from, position_t* to) {
+void get_play(board_t* board, position_t* from, position_t* to) {
+	// For some reason, the AI will sometimes jump when it can slurp to this position instead!
+	// So, see if there is one of our pieces closer to the to we can just slurp from instead
+	int lx = best_play_to.x - 1;
+	int rx = best_play_to.x + 1;
+	int ty = best_play_to.y + 1;
+	int by = best_play_to.y - 1;
+	if (lx < 0) lx = 0;
+	if (rx >= BOARD_WIDTH) rx = BOARD_WIDTH - 1;
+	if (by < 0) by = 0;
+	if (ty >= BOARD_HEIGHT) ty = BOARD_HEIGHT - 1;
+	for (int x = lx; x <= rx; x++) {
+		for (int y = by; y <= ty; y++) {
+			if (board->position[x][y] == board->position[best_play_from.x][best_play_from.y]) {
+				// Choose this, same outcome but we gain a piece
+				best_play_from.x = x;
+				best_play_from.y = y;
+				break;
+			}
+		}
+	}
+	// Set the best play
 	*from = best_play_from;
 	*to = best_play_to;
 }
@@ -25,9 +47,6 @@ static int score_board(board_t* board) {
 			if (board->position[x][y] != 0) {
 				if (board->position[x][y] == 1) {
 					num_pieces++;
-				}
-				else {
-					num_pieces--;
 				}
 			}
 		}
